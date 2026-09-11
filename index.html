@@ -9,117 +9,121 @@
 </head>
 <body>
 
-    <!-- ================= PANTALLA 1: BLOQUEO ================= -->
-    <div id="pantallaBloqueo">
-        <div class="puertas">
-            <div class="puerta puerta-izquierda"></div>
-            <div class="puerta puerta-derecha"></div>
-        </div>
-
-        <div class="candado-contenedor">
-            <div id="candado" class="candado cerrado">🔒</div>
-            <p class="candado-texto">Ingresa la clave para desbloquear</p>
-
-            <div class="campos-clave">
-                <!-- Campo Día -->
-                <div class="campo">
-                    <span class="etiqueta">Día</span>
-                    <button class="flecha arriba" data-target="dia">▲</button>
-                    <div class="num-display" id="dia">04</div>
-                    <button class="flecha abajo" data-target="dia">▼</button>
-                </div>
-
-                <div class="separador">/</div>
-
-                <!-- Campo Mes -->
-                <div class="campo">
-                    <span class="etiqueta">Mes</span>
-                    <button class="flecha arriba" data-target="mes">▲</button>
-                    <div class="num-display" id="mes">09</div>
-                    <button class="flecha abajo" data-target="mes">▼</button>
-                </div>
-
-                <div class="separador">/</div>
-
-                <!-- Campo Año -->
-                <div class="campo">
-                    <span class="etiqueta">Año</span>
-                    <button class="flecha arriba" data-target="anio">▲</button>
-                    <div class="num-display" id="anio">25</div>
-                    <button class="flecha abajo" data-target="anio">▼</button>
-                </div>
-            </div>
-
-            <button id="btnDesbloquear" class="btn-principal">Desbloquear 🌻</button>
-            <p id="mensajeError" class="mensaje-error"></p>
-        </div>
-    </div>
-
-    <!-- ================= PANTALLA 2: CONTENIDO PRINCIPAL ================= -->
-    <div id="pantallaPrincipal" class="oculto">
+    <!-- ====== CONTENIDO PRINCIPAL (detrás de las puertas) ====== -->
+    <div id="pantallaPrincipal">
         <div id="lluviaGirasoles"></div>
 
         <header class="header-principal">
             <h1 class="titulo-principal">Feliz Día de las Flores Amarillas 🌻💛</h1>
             <p class="subtitulo">Una fecha especial para alguien especial</p>
-            <button id="btnMusica" class="btn-musica">🎵 Pausar Música</button>
         </header>
 
-        <!-- SECCIÓN POEMAS -->
+        <!-- SECCIÓN POEMAS: SOBRES GRANDES UNO BAJO EL OTRO -->
         <section class="seccion">
             <h2 class="titulo-seccion">💌 Cartas y Poemas 💌</h2>
             <div class="grid-cartas">
-                <!-- Carta 1 -->
-                <div class="sobre" data-poema="1">
-                    <div class="sobre-cuerpo"></div>
-                    <div class="sobre-sello corazon">💖</div>
-                    <p class="sobre-texto">Poema 1</p>
+                <div class="sobre sobre-1" data-poema="1">
+                    <div class="papel">💖</div>
+                    <div class="bolsillo"></div>
+                    <div class="solapa"><div class="sello-wax corazon">💖</div></div>
+                    <div class="estampilla">💌</div>
+                    <p class="sobre-para">Para: ti 💛</p>
                 </div>
-                <!-- Carta 2 -->
-                <div class="sobre" data-poema="2">
-                    <div class="sobre-cuerpo"></div>
-                    <div class="sobre-sello girasol">🌻</div>
-                    <p class="sobre-texto">Poema 2</p>
+                <div class="sobre sobre-2" data-poema="2">
+                    <div class="papel">🌻</div>
+                    <div class="bolsillo"></div>
+                    <div class="solapa"><div class="sello-wax girasol">🌻</div></div>
+                    <div class="estampilla">🌻</div>
+                    <p class="sobre-para">Para: ti 💛</p>
                 </div>
-                <!-- Carta 3 -->
-                <div class="sobre" data-poema="3">
-                    <div class="sobre-cuerpo"></div>
-                    <div class="sobre-sello corazon">💖</div>
-                    <p class="sobre-texto">Poema 3</p>
+                <div class="sobre sobre-3" data-poema="3">
+                    <div class="papel">💖</div>
+                    <div class="bolsillo"></div>
+                    <div class="solapa"><div class="sello-wax corazon">💖</div></div>
+                    <div class="estampilla">💌</div>
+                    <p class="sobre-para">Para: ti 💛</p>
                 </div>
-                <!-- Carta 4 -->
-                <div class="sobre" data-poema="4">
-                    <div class="sobre-cuerpo"></div>
-                    <div class="sobre-sello girasol">🌻</div>
-                    <p class="sobre-texto">Poema 4</p>
+                <div class="sobre sobre-4" data-poema="4">
+                    <div class="papel">🌻</div>
+                    <div class="bolsillo"></div>
+                    <div class="solapa"><div class="sello-wax girasol">🌻</div></div>
+                    <div class="estampilla">🌻</div>
+                    <p class="sobre-para">Para: ti 💛</p>
                 </div>
             </div>
         </section>
 
-        <!-- SECCIÓN FOTOGRAFÍAS -->
-        <section class="seccion">
+        <!-- SECCIÓN GALERÍA: CARRUSEL 3D DE ANILLO -->
+        <section class="seccion seccion-carrusel">
             <h2 class="titulo-seccion">📸 Nuestra Galería 📸</h2>
-            <div class="carrusel-3d" id="carrusel">
-                <div class="escena-3d" id="escena">
-                    <div class="foto-3d" style="--i:0;" data-foto="1"><img src="foto1.jpg" alt="Foto 1"></div>
-                    <div class="foto-3d" style="--i:1;" data-foto="2"><img src="foto2.jpg" alt="Foto 2"></div>
-                    <div class="foto-3d" style="--i:2;" data-foto="3"><img src="foto3.jpg" alt="Foto 3"></div>
-                    <div class="foto-3d" style="--i:3;" data-foto="4"><img src="foto4.jpg" alt="Foto 4"></div>
-                    <div class="foto-3d" style="--i:4;" data-foto="5"><img src="foto5.jpg" alt="Foto 5"></div>
+            <div class="carrusel-viewport" id="carrusel">
+                <div class="escala-3d">
+                    <div class="escena-3d" id="escena">
+                        <div class="foto-3d" style="--i:0;" data-foto="1"><img src="foto1.jpg" alt="Foto 1"></div>
+                        <div class="foto-3d" style="--i:1;" data-foto="2"><img src="foto2.jpg" alt="Foto 2"></div>
+                        <div class="foto-3d" style="--i:2;" data-foto="3"><img src="foto3.jpg" alt="Foto 3"></div>
+                        <div class="foto-3d" style="--i:3;" data-foto="4"><img src="foto4.jpg" alt="Foto 4"></div>
+                        <div class="foto-3d" style="--i:4;" data-foto="5"><img src="foto5.jpg" alt="Foto 5"></div>
+                    </div>
                 </div>
-                <div class="controles-carrusel">
-                    <button id="btnAnterior" class="btn-carrusel">◀ Anterior</button>
-                    <button id="btnSiguiente" class="btn-carrusel">Siguiente ▶</button>
-                </div>
+            </div>
+            <div class="puntos" id="puntos"></div>
+            <div class="controles-carrusel">
+                <button id="btnAnterior" class="btn-carrusel">◀ Anterior</button>
+                <button id="btnSiguiente" class="btn-carrusel">Siguiente ▶</button>
             </div>
         </section>
 
         <footer class="footer">
-            <p>Hecho con mucho amor 💛 🌻</p>
+            <p>Hecho con mucho amor 💛 </p>
+            <button id="btnMusica" class="btn-musica">🎵 Pausar Música</button>
         </footer>
     </div>
 
-    <!-- ============ MODAL POEMA ============ -->
+    <!-- ====== PANTALLA DE BLOQUEO (encima) ====== -->
+    <div id="pantallaBloqueo">
+        <div class="puerta puerta-izquierda"></div>
+        <div class="puerta puerta-derecha"></div>
+
+        <div class="candado-contenedor" id="tarjeta">
+            <div class="tarjeta-mitad mitad-izq"></div>
+            <div class="tarjeta-mitad mitad-der"></div>
+
+            <div class="tarjeta-contenido">
+                <div id="candado" class="candado cerrado">🔒</div>
+                <p class="candado-texto">Ingresa la clave para desbloquear</p>
+                <p class="pista">💡 Pista: la fecha en que todo comenzó… 🖤</p>
+
+                <div class="campos-clave">
+                    <div class="campo">
+                        <span class="etiqueta">Día</span>
+                        <button class="flecha arriba" data-target="dia">▲</button>
+                        <div class="num-display" id="dia">00</div>
+                        <button class="flecha abajo" data-target="dia">▼</button>
+                    </div>
+                    <div class="separador">/</div>
+                    <div class="campo">
+                        <span class="etiqueta">Mes</span>
+                        <button class="flecha arriba" data-target="mes">▲</button>
+                        <div class="num-display" id="mes">00</div>
+                        <button class="flecha abajo" data-target="mes">▼</button>
+                    </div>
+                    <div class="separador">/</div>
+                    <div class="campo">
+                        <span class="etiqueta">Año</span>
+                        <button class="flecha arriba" data-target="anio">▲</button>
+                        <div class="num-display" id="anio">00</div>
+                        <button class="flecha abajo" data-target="anio">▼</button>
+                    </div>
+                </div>
+
+                <button id="btnDesbloquear" class="btn-principal">Desbloquear 🌻</button>
+                <p id="mensajeError" class="mensaje-error"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ====== MODAL POEMA ====== -->
     <div id="modalPoema" class="modal">
         <div class="modal-contenido poema">
             <button class="btn-cerrar">&times;</button>
@@ -128,7 +132,7 @@
         </div>
     </div>
 
-    <!-- ============ MODAL FOTO ============ -->
+    <!-- ====== MODAL FOTO ====== -->
     <div id="modalFoto" class="modal modal-slide">
         <div class="modal-contenido slide-up">
             <button class="btn-cerrar">&times;</button>

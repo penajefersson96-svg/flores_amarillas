@@ -1,6 +1,6 @@
 /* ===== PARTE 1: CONFIGURACIÓN Y TEXTOS ===== */
 const CLAVE_CORRECTA = { dia: '04', mes: '09', anio: '25' };
-let valores = { dia: 4, mes: 9, anio: 25 };
+let valores = { dia: 0, mes: 0, anio: 0 };
 
 const poemas = {
     1: {
@@ -62,28 +62,23 @@ const cartasFotos = {
     2: "Tu sonrisa iluminó ese día tanto como el sol a los girasoles. Cada vez que veo esta foto, sonrío igual que tú. 🌻",
     3: "Momentos simples que se vuelven extraordinarios cuando estoy contigo. Gracias por cada segundo. 💖",
     4: "La mejor versión de mí mismo surge cuando estoy a tu lado. Esta foto lo demuestra todo. 🌼",
-    5: "Y seguiría coleccionando momentos contigo toda la vida. Te amo más de lo que las palabras pueden expresar. 💛🌻"
+    5: "Y seguiría coleccionando momentos contigo toda la vida. Te amo más de lo que las palabras pueden expresar. 💛"
 };
-/* ===== PARTE 2: INICIO Y SISTEMA DE CANDADO ===== */
+/* ===== PARTE 2: INICIO, CANDADO, MÚSICA Y LLUVIA ===== */
 document.addEventListener('DOMContentLoaded', () => {
+    document.body.classList.add('sin-scroll');
     inicializarCandado();
     inicializarModales();
     inicializarCarrusel();
 });
 
 function inicializarCandado() {
-    const botonesFlecha = document.querySelectorAll('.flecha');
-    const btnDesbloquear = document.getElementById('btnDesbloquear');
-
-    botonesFlecha.forEach(btn => {
+    document.querySelectorAll('.flecha').forEach(btn => {
         btn.addEventListener('click', () => {
-            const target = btn.dataset.target;
-            const esArriba = btn.classList.contains('arriba');
-            cambiarValor(target, esArriba);
+            cambiarValor(btn.dataset.target, btn.classList.contains('arriba'));
         });
     });
-
-    btnDesbloquear.addEventListener('click', intentarDesbloquear);
+    document.getElementById('btnDesbloquear').addEventListener('click', intentarDesbloquear);
     actualizarDisplays();
 }
 
@@ -112,7 +107,7 @@ function intentarDesbloquear() {
         mensajeError.textContent = '';
         desbloquear();
     } else {
-        mensajeError.textContent = '❌ Clave incorrecta, intenta de nuevo';
+        mensajeError.textContent = '❌ Clave incorrecta… sigue la pista 💛';
         const candado = document.getElementById('candado');
         candado.style.animation = 'none';
         setTimeout(() => {
@@ -123,24 +118,24 @@ function intentarDesbloquear() {
 
 function desbloquear() {
     const candado = document.getElementById('candado');
-    const puertas = document.querySelectorAll('.puerta');
-
     candado.textContent = '🔓';
     candado.classList.remove('cerrado');
     candado.classList.add('abierto');
 
+    iniciarMusica();
+
     setTimeout(() => {
-        puertas.forEach(p => p.classList.add('abierta'));
+        document.querySelectorAll('.puerta').forEach(p => p.classList.add('abierta'));
+        document.getElementById('tarjeta').classList.add('abierta');
+        iniciarLluviaGirasoles();
     }, 500);
 
     setTimeout(() => {
         document.getElementById('pantallaBloqueo').style.display = 'none';
-        document.getElementById('pantallaPrincipal').classList.remove('oculto');
-        iniciarMusica();
-        iniciarLluviaGirasoles();
-    }, 2300);
-                                                }
-/* ===== PARTE 3: MÚSICA Y LLUVIA DE GIRASOLES ===== */
+        document.body.classList.remove('sin-scroll');
+    }, 2400);
+}
+
 function iniciarMusica() {
     const audio = document.getElementById('audio');
     audio.loop = true;
@@ -152,21 +147,20 @@ function iniciarMusica() {
         });
     }
 
-    const btnMusica = document.getElementById('btnMusica');
-    btnMusica.addEventListener('click', () => {
+    document.getElementById('btnMusica').addEventListener('click', () => {
         if (audio.paused) {
             audio.play();
-            btnMusica.textContent = '🎵 Pausar Música';
+            document.getElementById('btnMusica').textContent = '🎵 Pausar Música';
         } else {
             audio.pause();
-            btnMusica.textContent = '▶ Reproducir Música';
+            document.getElementById('btnMusica').textContent = '▶ Reproducir Música';
         }
     });
 }
 
 function iniciarLluviaGirasoles() {
     const contenedor = document.getElementById('lluviaGirasoles');
-    const emojis = ['🌻', '🌼', '💛', '', ''];
+    const emojis = ['🌻', '', '💛', '', ''];
 
     function crearGirasol() {
         const girasol = document.createElement('div');
@@ -178,93 +172,122 @@ function iniciarLluviaGirasoles() {
         girasol.style.animationDuration = duracion + 's';
         girasol.style.opacity = Math.random() * 0.5 + 0.4;
         contenedor.appendChild(girasol);
-
         setTimeout(() => girasol.remove(), duracion * 1000);
     }
 
     for (let i = 0; i < 8; i++) {
         setTimeout(crearGirasol, i * 400);
     }
-
     setInterval(crearGirasol, 900);
 }
-/* ===== PARTE 4: MODALES Y CARRUSEL 3D ===== */
+/* ===== PARTE 3: SOBRES, MODALES Y CARRUSEL 3D ===== */
 function inicializarModales() {
     const modalPoema = document.getElementById('modalPoema');
     const modalFoto = document.getElementById('modalFoto');
-    const botonesCerrar = document.querySelectorAll('.btn-cerrar');
 
     document.querySelectorAll('.sobre').forEach(sobre => {
         sobre.addEventListener('click', () => {
-            const num = sobre.dataset.poema;
-            const poema = poemas[num];
-            document.getElementById('poemaTitulo').textContent = poema.titulo;
-            document.getElementById('poemaTexto').textContent = poema.texto;
-            modalPoema.classList.add('activo');
+            if (sobre.classList.contains('abriendo')) return;
+            document.querySelectorAll('.sobre').forEach(o => o.classList.remove('abriendo'));
+            sobre.classList.add('abriendo');
+
+            setTimeout(() => {
+                const poema = poemas[sobre.dataset.poema];
+                document.getElementById('poemaTitulo').textContent = poema.titulo;
+                document.getElementById('poemaTexto').textContent = poema.texto;
+                modalPoema.classList.add('activo');
+            }, 1300);
         });
     });
 
-    document.getElementById('escena').addEventListener('click', (e) => {
-        const foto = e.target.closest('.foto-3d');
-        if (foto) {
-            const num = foto.dataset.foto;
-            document.getElementById('modalFotoImg').src = 'foto' + num + '.jpg';
-            document.getElementById('modalFotoCarta').textContent = cartasFotos[num];
-            modalFoto.classList.add('activo');
-        }
-    });
-
-    botonesCerrar.forEach(btn => {
+    document.querySelectorAll('.btn-cerrar').forEach(btn => {
         btn.addEventListener('click', (e) => {
-            e.currentTarget.closest('.modal').classList.remove('activo');
+            cerrarModales();
         });
     });
 
     [modalPoema, modalFoto].forEach(modal => {
         modal.addEventListener('click', (e) => {
-            if (e.target === modal) modal.classList.remove('activo');
+            if (e.target === modal) cerrarModales();
         });
     });
 }
 
+function cerrarModales() {
+    document.querySelectorAll('.modal').forEach(m => m.classList.remove('activo'));
+    document.querySelectorAll('.sobre').forEach(o => o.classList.remove('abriendo'));
+}
+
+function abrirModalFoto(num) {
+    document.getElementById('modalFotoImg').src = 'foto' + num + '.jpg';
+    document.getElementById('modalFotoCarta').textContent = cartasFotos[num];
+    document.getElementById('modalFoto').classList.add('activo');
+}
+
 function inicializarCarrusel() {
     const escena = document.getElementById('escena');
-    let angulo = 0;
-    const anguloPorFoto = 360 / 5;
+    const paneles = Array.from(escena.children);
+    const puntosCont = document.getElementById('puntos');
+    const viewport = document.getElementById('carrusel');
+    let ang = 0;
+
+    paneles.forEach((p, i) => {
+        const d = document.createElement('div');
+        d.className = 'punto';
+        d.addEventListener('click', () => irA(i));
+        puntosCont.appendChild(d);
+    });
+
+    function frente() {
+        return ((Math.round(-ang / 72) % 5) + 5) % 5;
+    }
+
+    function pintar() {
+        escena.style.transform = 'translateZ(-200px) rotateY(' + ang + 'deg)';
+        const f = frente();
+        Array.from(puntosCont.children).forEach((d, i) => {
+            d.classList.toggle('activo', i === f);
+        });
+    }
+
+    function irA(i) {
+        const base = -i * 72;
+        ang = base + 360 * Math.round((ang - base) / 360);
+        pintar();
+    }
 
     document.getElementById('btnAnterior').addEventListener('click', () => {
-        angulo += anguloPorFoto;
-        escena.style.transform = `translateZ(-280px) rotateY(${angulo}deg)`;
+        ang += 72;
+        pintar();
     });
 
     document.getElementById('btnSiguiente').addEventListener('click', () => {
-        angulo -= anguloPorFoto;
-        escena.style.transform = `translateZ(-280px) rotateY(${angulo}deg)`;
+        ang -= 72;
+        pintar();
     });
 
-    escena.style.transform = `translateZ(-280px) rotateY(0deg)`;
-
-    let touchStartX = 0;
-    let touchEndX = 0;
-
-    escena.addEventListener('touchstart', (e) => {
-        touchStartX = e.changedTouches[0].screenX;
+    let x0 = 0;
+    viewport.addEventListener('touchstart', (e) => {
+        x0 = e.changedTouches[0].screenX;
     }, { passive: true });
 
-    escena.addEventListener('touchend', (e) => {
-        touchEndX = e.changedTouches[0].screenX;
-        manejarSwipe();
-    }, { passive: true });
-
-    function manejarSwipe() {
-        const diff = touchStartX - touchEndX;
-        if (Math.abs(diff) > 50) {
-            if (diff > 0) {
-                angulo -= anguloPorFoto;
-            } else {
-                angulo += anguloPorFoto;
-            }
-            escena.style.transform = `translateZ(-280px) rotateY(${angulo}deg)`;
+    viewport.addEventListener('touchend', (e) => {
+        const dx = x0 - e.changedTouches[0].screenX;
+        if (Math.abs(dx) > 45) {
+            ang += (dx > 0 ? 72 : -72);
+            pintar();
         }
-    }
+    }, { passive: true });
+
+    paneles.forEach((p, i) => {
+        p.addEventListener('click', () => {
+            if (i === frente()) {
+                abrirModalFoto(i + 1);
+            } else {
+                irA(i);
+            }
+        });
+    });
+
+    pintar();
 }
