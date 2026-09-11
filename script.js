@@ -160,7 +160,7 @@ function iniciarMusica() {
 
 function iniciarLluviaGirasoles() {
     const contenedor = document.getElementById('lluviaGirasoles');
-    const emojis = ['🌻', '🌼', '💛', '', ''];
+    const emojis = ['🌻', '', '', '🌻', '🌼'];
 
     function crearGirasol() {
         const girasol = document.createElement('div');
