@@ -464,122 +464,157 @@ body.sin-scroll {
     margin-bottom: 25px;
     text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
 }
-/* ===== PARTE 3: SOBRES QUE SE ABREN Y CARRUSEL 3D ===== */
+/* ===== PARTE 3: SOBRES QUE SE ABREN DE VERDAD Y CARRUSEL BONITO ===== */
 .grid-cartas {
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 26px;
     max-width: 560px;
     margin: 0 auto;
 }
 
 .sobre {
     position: relative;
+    z-index: 1;
     width: 100%;
     aspect-ratio: 16 / 10;
     border-radius: 12px;
     cursor: pointer;
-    overflow: hidden;
     box-shadow: 0 8px 20px rgba(0,0,0,0.22);
     perspective: 900px;
     transition: transform 0.25s;
+    background-color: var(--papel);
+    background-image: var(--patron);
+    background-size: var(--size);
+}
+
+.sobre.abriendo {
+    z-index: 6;
 }
 
 .sobre:active {
     transform: scale(0.97);
 }
 
-/* Papeles diferentes por sobre */
 .sobre-1 {
-    background-color: #f5e6cd;
-    background-image: radial-gradient(rgba(180,140,90,0.3) 2px, transparent 2.5px);
-    background-size: 20px 20px;
-    --solapa: #dfc49c;
+    --papel: #f0dcb8;
+    --patron: radial-gradient(rgba(150,105,55,0.5) 2.5px, transparent 3px);
+    --size: 20px 20px;
+    --solapa: #d9b788;
 }
 
 .sobre-2 {
-    background-color: #fff8e1;
-    background-image: repeating-linear-gradient(45deg, rgba(255,193,7,0.18) 0 10px, transparent 10px 20px);
-    --solapa: #ffe9a8;
+    --papel: #fff3c9;
+    --patron: repeating-linear-gradient(45deg, rgba(255,170,0,0.35) 0 10px, transparent 10px 20px);
+    --size: auto;
+    --solapa: #ffe08a;
 }
 
 .sobre-3 {
-    background-color: #ffe9f0;
-    background-image: radial-gradient(rgba(255,105,180,0.25) 3px, transparent 3.5px);
-    background-size: 22px 22px;
-    --solapa: #ffd3e2;
+    --papel: #ffdfea;
+    --patron: radial-gradient(rgba(255,60,140,0.4) 3px, transparent 3.5px);
+    --size: 22px 22px;
+    --solapa: #ffc4d8;
 }
 
 .sobre-4 {
-    background-color: #fdf6d8;
-    background-image: repeating-linear-gradient(90deg, rgba(200,160,60,0.18) 0 2px, transparent 2px 14px);
-    --solapa: #f0e0a6;
+    --papel: #faf0c8;
+    --patron: repeating-linear-gradient(90deg, rgba(180,135,30,0.35) 0 3px, transparent 3px 15px);
+    --size: auto;
+    --solapa: #eddc96;
 }
 
-/* Carta interior que asoma */
+/* Carta interior CON TEXTO ESCRITO */
 .papel {
     position: absolute;
     left: 8%;
-    top: 55%;
+    top: 52%;
     width: 84%;
-    height: 40%;
-    background: #fffdf6 repeating-linear-gradient(transparent 0 14px, rgba(150,120,60,0.25) 14px 15px);
+    height: 45%;
+    background: #fffdf6 repeating-linear-gradient(transparent 0 14px, rgba(150,120,60,0.3) 14px 15px);
     border-radius: 6px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.25);
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    font-size: 34px;
+    gap: 4px;
+    font-size: 30px;
     z-index: 2;
     transition: transform 0.7s ease 0.6s;
 }
 
-.sobre.abriendo .papel {
-    transform: translateY(-58%);
+.papel::after {
+    content: 'Mi amor, para ti… 💛';
+    font-size: 12px;
+    font-style: italic;
+    color: #7a5a3a;
 }
 
-/* Bolsillo frontal */
+.sobre.abriendo .papel {
+    transform: translateY(-95%);
+}
+
+/* Bolsillo OPACO: la carta no se ve cerrada */
 .bolsillo {
     position: absolute;
     bottom: 0; left: 0;
     width: 100%;
     height: 84%;
     clip-path: polygon(0 0, 50% 40%, 100% 0, 100% 100%, 0 100%);
-    background: rgba(255,255,255,0.4);
+    background-color: var(--papel);
+    background-image: var(--patron);
+    background-size: var(--size);
+    border-radius: 0 0 12px 12px;
+    filter: brightness(1.07);
     z-index: 3;
 }
 
-/* Solapa que se abre primero */
+.bolsillo::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 45%;
+    background: linear-gradient(rgba(0,0,0,0.10), transparent);
+}
+
+/* Solapa que SE VE al abrirse (queda parada arriba) */
 .solapa {
     position: absolute;
     top: 0; left: 0;
     width: 100%;
     height: 56%;
-    clip-path: polygon(0 0, 100% 0, 50% 92%);
-    background-color: var(--solapa);
-    background-image: linear-gradient(rgba(255,255,255,0.3), rgba(0,0,0,0.06));
     transform-origin: top center;
     transform-style: preserve-3d;
     transition: transform 0.6s ease;
     z-index: 4;
 }
 
+.solapa-forma {
+    position: absolute;
+    inset: 0;
+    clip-path: polygon(0 0, 100% 0, 50% 92%);
+    border-radius: 12px 12px 0 0;
+    background-color: var(--solapa);
+    background-image: linear-gradient(rgba(255,255,255,0.18), rgba(0,0,0,0.05));
+}
+
 .sobre.abriendo .solapa {
     transform: rotateX(-180deg);
 }
 
-/* Sello de cera sobre la solapa */
 .sello-wax {
     position: absolute;
-    top: 82%; left: 50%;
+    top: 86%; left: 50%;
     transform: translate(-50%, -50%);
-    width: 56px;
-    height: 56px;
+    width: 58px;
+    height: 58px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 30px;
+    font-size: 32px;
     border: 3px solid;
     box-shadow: 0 3px 10px rgba(0,0,0,0.35);
     backface-visibility: hidden;
@@ -628,19 +663,74 @@ body.sin-scroll {
     z-index: 6;
 }
 
-/* ----- Carrusel 3D de anillo (contenido) ----- */
+/* ----- Carrusel 3D con paisaje suave ----- */
 .seccion-carrusel {
     overflow: hidden;
+    position: relative;
+    background: rgba(255, 252, 240, 0.92);
+}
+
+.seccion-carrusel > * {
+    position: relative;
+    z-index: 1;
+}
+
+.pista-galeria {
+    width: fit-content;
+    max-width: 92%;
+    margin: 0 auto 16px;
+    text-align: center;
+    font-size: 13px;
+    color: #6b4a00;
+    font-weight: bold;
+    font-style: italic;
+    background: rgba(255, 246, 200, 0.92);
+    border: 1px dashed #b8860b;
+    border-radius: 10px;
+    padding: 8px 12px;
 }
 
 .carrusel-viewport {
+    position: relative;
     width: 100%;
-    height: 280px;
+    height: 260px;
     overflow: hidden;
     perspective: 900px;
     display: flex;
     align-items: center;
     justify-content: center;
+    border-radius: 20px 20px 0 0;
+    background:
+        radial-gradient(ellipse at 50% 92%, rgba(70,45,0,0.22), transparent 60%),
+        radial-gradient(circle at 50% 16%, rgba(255,224,102,0.9) 0 5%, rgba(255,224,102,0.45) 6% 9%, rgba(255,224,102,0) 10%),
+        linear-gradient(#fffdf6 0%, #fff8e0 38%, #ffefb8 54%, #f3d98d 68%, #ddb75e 82%, #c9a040 100%);
+}
+
+.carrusel-viewport::before {
+    content: "🌻  🌻 ";
+    position: absolute;
+    inset: 0;
+    text-align: center;
+    padding-top: 58%;
+    font-size: 15px;
+    letter-spacing: 14px;
+    opacity: 0.6;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.base-carrusel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 0 10px;
+    background: repeating-linear-gradient(90deg, #ffd75e 0 16px, #ffc93c 16px 32px);
+    border-top: 3px solid #c9971b;
+    border-radius: 0 0 18px 18px;
+    box-shadow: inset 0 4px 8px rgba(255,255,255,0.35), inset 0 -6px 12px rgba(0,0,0,0.15), 0 8px 18px rgba(0,0,0,0.22);
+    font-size: 18px;
+    margin-bottom: 8px;
 }
 
 .escala-3d {
@@ -676,6 +766,37 @@ body.sin-scroll {
     object-fit: cover;
     display: block;
     pointer-events: none;
+}
+
+/* Cartita que sale de la foto, con texto */
+.mini-carta {
+    position: absolute;
+    left: 15%;
+    top: 110%;
+    width: 70%;
+    height: 55%;
+    background: #fffdf6 repeating-linear-gradient(transparent 0 12px, rgba(150,120,60,0.3) 12px 13px);
+    border-radius: 6px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.35);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    z-index: 2;
+    transition: transform 0.7s ease;
+}
+
+.mini-carta::after {
+    content: 'Ábreme 💛';
+    font-size: 10px;
+    font-style: italic;
+    color: #7a5a3a;
+    margin-top: 3px;
+}
+
+.foto-3d.saliendo .mini-carta {
+    transform: translateY(-150%);
 }
 
 .puntos {
@@ -858,5 +979,33 @@ body.sin-scroll {
     .titulo-principal { font-size: 48px; }
     .grid-cartas { max-width: 700px; }
     .escala-3d { transform: scale(1); }
-    .carrusel-viewport { height: 340px; }
+    .carrusel-viewport { height: 320px; }
+}
+/* ===== EXTRA: CARTITA GARANTIZADA EN TODAS LAS FOTOS ===== */
+.mini-carta {
+    display: none;
+}
+
+.foto-3d::after {
+    content: '💌 Ábreme';
+    position: absolute;
+    left: 15%;
+    top: 110%;
+    width: 70%;
+    height: 55%;
+    background: #fffdf6 repeating-linear-gradient(transparent 0 12px, rgba(150,120,60,0.3) 12px 13px);
+    border-radius: 6px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-style: italic;
+    color: #7a5a3a;
+    z-index: 2;
+    transition: transform 0.7s ease;
+}
+
+.foto-3d.saliendo::after {
+    transform: translateY(-150%);
 }

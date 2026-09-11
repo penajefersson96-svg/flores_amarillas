@@ -201,9 +201,7 @@ function inicializarModales() {
     });
 
     document.querySelectorAll('.btn-cerrar').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            cerrarModales();
-        });
+        btn.addEventListener('click', () => cerrarModales());
     });
 
     [modalPoema, modalFoto].forEach(modal => {
@@ -216,12 +214,25 @@ function inicializarModales() {
 function cerrarModales() {
     document.querySelectorAll('.modal').forEach(m => m.classList.remove('activo'));
     document.querySelectorAll('.sobre').forEach(o => o.classList.remove('abriendo'));
+    document.querySelectorAll('.foto-3d').forEach(f => f.classList.remove('saliendo'));
 }
 
 function abrirModalFoto(num) {
     document.getElementById('modalFotoImg').src = 'foto' + num + '.jpg';
     document.getElementById('modalFotoCarta').textContent = cartasFotos[num];
     document.getElementById('modalFoto').classList.add('activo');
+}
+
+/* Si una foto no tiene cartita, la crea en ese instante */
+function asegurarCarta(panel) {
+    let c = panel.querySelector('.mini-carta');
+    if (!c) {
+        c = document.createElement('div');
+        c.className = 'mini-carta';
+        c.textContent = '💌';
+        panel.appendChild(c);
+    }
+    return c;
 }
 
 function inicializarCarrusel() {
@@ -231,20 +242,21 @@ function inicializarCarrusel() {
     const viewport = document.getElementById('carrusel');
     let ang = 0;
 
-    paneles.forEach((p, i) => {
+    puntosCont.innerHTML = '';
+    for (let i = 0; i < 5; i++) {
         const d = document.createElement('div');
         d.className = 'punto';
         d.addEventListener('click', () => irA(i));
         puntosCont.appendChild(d);
-    });
+    }
 
-    function frente() {
+    function frenteI() {
         return ((Math.round(-ang / 72) % 5) + 5) % 5;
     }
 
     function pintar() {
         escena.style.transform = 'translateZ(-200px) rotateY(' + ang + 'deg)';
-        const f = frente();
+        const f = frenteI();
         Array.from(puntosCont.children).forEach((d, i) => {
             d.classList.toggle('activo', i === f);
         });
@@ -279,13 +291,19 @@ function inicializarCarrusel() {
         }
     }, { passive: true });
 
-    paneles.forEach((p, i) => {
+    paneles.forEach(p => {
         p.addEventListener('click', () => {
-            if (i === frente()) {
-                abrirModalFoto(i + 1);
-            } else {
-                irA(i);
+            const pi = parseInt(p.style.getPropertyValue('--i'), 10);
+            const num = parseInt(p.dataset.foto, 10);
+            if (pi !== frenteI()) {
+                irA(pi);
+                return;
             }
+            if (p.classList.contains('saliendo')) return;
+            p.classList.add('saliendo');
+            setTimeout(() => {
+                abrirModalFoto(num);
+            }, 900);
         });
     });
 

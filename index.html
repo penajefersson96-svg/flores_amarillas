@@ -18,55 +18,84 @@
             <p class="subtitulo">Una fecha especial para alguien especial</p>
         </header>
 
-        <!-- SECCIÓN POEMAS: SOBRES GRANDES UNO BAJO EL OTRO -->
+        <!-- SECCIÓN POEMAS: SOBRES GRANDES -->
         <section class="seccion">
             <h2 class="titulo-seccion">💌 Cartas y Poemas 💌</h2>
             <div class="grid-cartas">
                 <div class="sobre sobre-1" data-poema="1">
                     <div class="papel">💖</div>
                     <div class="bolsillo"></div>
-                    <div class="solapa"><div class="sello-wax corazon">💖</div></div>
+                    <div class="solapa">
+                        <div class="solapa-forma"></div>
+                        <div class="sello-wax corazon">💖</div>
+                    </div>
                     <div class="estampilla">💌</div>
                     <p class="sobre-para">Para: ti 💛</p>
                 </div>
                 <div class="sobre sobre-2" data-poema="2">
                     <div class="papel">🌻</div>
                     <div class="bolsillo"></div>
-                    <div class="solapa"><div class="sello-wax girasol">🌻</div></div>
+                    <div class="solapa">
+                        <div class="solapa-forma"></div>
+                        <div class="sello-wax girasol">🌻</div>
+                    </div>
                     <div class="estampilla">🌻</div>
                     <p class="sobre-para">Para: ti 💛</p>
                 </div>
                 <div class="sobre sobre-3" data-poema="3">
                     <div class="papel">💖</div>
                     <div class="bolsillo"></div>
-                    <div class="solapa"><div class="sello-wax corazon">💖</div></div>
+                    <div class="solapa">
+                        <div class="solapa-forma"></div>
+                        <div class="sello-wax corazon">💖</div>
+                    </div>
                     <div class="estampilla">💌</div>
                     <p class="sobre-para">Para: ti 💛</p>
                 </div>
                 <div class="sobre sobre-4" data-poema="4">
                     <div class="papel">🌻</div>
                     <div class="bolsillo"></div>
-                    <div class="solapa"><div class="sello-wax girasol">🌻</div></div>
+                    <div class="solapa">
+                        <div class="solapa-forma"></div>
+                        <div class="sello-wax girasol">🌻</div>
+                    </div>
                     <div class="estampilla">🌻</div>
                     <p class="sobre-para">Para: ti 💛</p>
                 </div>
             </div>
         </section>
 
-        <!-- SECCIÓN GALERÍA: CARRUSEL 3D DE ANILLO -->
+        <!-- SECCIÓN GALERÍA: CARRUSEL 3D CON CARTAS ESCONDIDAS -->
         <section class="seccion seccion-carrusel">
             <h2 class="titulo-seccion">📸 Nuestra Galería 📸</h2>
+            <p class="pista-galeria">👇 Toca la foto del centro… ¡hay una carta escondida adentro! 💌</p>
             <div class="carrusel-viewport" id="carrusel">
-                <div class="escala-3d">
-                    <div class="escena-3d" id="escena">
-                        <div class="foto-3d" style="--i:0;" data-foto="1"><img src="foto1.jpg" alt="Foto 1"></div>
-                        <div class="foto-3d" style="--i:1;" data-foto="2"><img src="foto2.jpg" alt="Foto 2"></div>
-                        <div class="foto-3d" style="--i:2;" data-foto="3"><img src="foto3.jpg" alt="Foto 3"></div>
-                        <div class="foto-3d" style="--i:3;" data-foto="4"><img src="foto4.jpg" alt="Foto 4"></div>
-                        <div class="foto-3d" style="--i:4;" data-foto="5"><img src="foto5.jpg" alt="Foto 5"></div>
-                    </div>
-                </div>
+    <div class="escala-3d">
+        <div class="escena-3d" id="escena">
+            <div class="foto-3d" style="--i:0;" data-foto="1">
+                <img src="foto1.jpg" alt="Foto 1">
+                <div class="mini-carta">💌</div>
             </div>
+            <div class="foto-3d" style="--i:1;" data-foto="2">
+                <img src="foto2.jpg" alt="Foto 2">
+                <div class="mini-carta">💌</div>
+            </div>
+            <div class="foto-3d" style="--i:2;" data-foto="3">
+                <img src="foto3.jpg" alt="Foto 3">
+                <div class="mini-carta">💌</div>
+            </div>
+            <div class="foto-3d" style="--i:3;" data-foto="4">
+                <img src="foto4.jpg" alt="Foto 4">
+                <div class="mini-carta">💌</div>
+            </div>
+            <div class="foto-3d" style="--i:4;" data-foto="5">
+                <img src="foto5.jpg" alt="Foto 5">
+                <div class="mini-carta">💌</div>
+            </div>
+        </div>
+    </div>
+</div>
+            <div class="base-carrusel"><span>🌻</span><span>💛</span><span>🌻</span><span>💛</span><span>🌻</span></div>
             <div class="puntos" id="puntos"></div>
             <div class="controles-carrusel">
                 <button id="btnAnterior" class="btn-carrusel">◀ Anterior</button>
@@ -75,7 +104,7 @@
         </section>
 
         <footer class="footer">
-            <p>Hecho con mucho amor 💛 </p>
+            <p>Hecho con mucho amor 🖤 </p>
             <button id="btnMusica" class="btn-musica">🎵 Pausar Música</button>
         </footer>
     </div>
