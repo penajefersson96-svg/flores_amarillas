@@ -62,7 +62,7 @@ const cartasFotos = {
     2: "Tu sonrisa iluminó ese día tanto como el sol a los girasoles. Cada vez que veo esta foto, sonrío igual que tú. 🌻",
     3: "Momentos simples que se vuelven extraordinarios cuando estoy contigo. Gracias por cada segundo. 💖",
     4: "La mejor versión de mí mismo surge cuando estoy a tu lado. Esta foto lo demuestra todo. 🌼",
-    5: "Y seguiría coleccionando momentos contigo toda la vida. Te amo más de lo que las palabras pueden expresar. 💛"
+    5: "Y seguiría coleccionando momentos contigo toda la vida. Te amo más de lo que las palabras pueden expresar. 💛🌻"
 };
 /* ===== PARTE 2: INICIO, CANDADO, MÚSICA Y LLUVIA ===== */
 document.addEventListener('DOMContentLoaded', () => {
@@ -160,7 +160,7 @@ function iniciarMusica() {
 
 function iniciarLluviaGirasoles() {
     const contenedor = document.getElementById('lluviaGirasoles');
-    const emojis = ['🌻', '', '💛', '', ''];
+    const emojis = ['🌻', '🌼', '💛', '', ''];
 
     function crearGirasol() {
         const girasol = document.createElement('div');
@@ -221,18 +221,6 @@ function abrirModalFoto(num) {
     document.getElementById('modalFotoImg').src = 'foto' + num + '.jpg';
     document.getElementById('modalFotoCarta').textContent = cartasFotos[num];
     document.getElementById('modalFoto').classList.add('activo');
-}
-
-/* Si una foto no tiene cartita, la crea en ese instante */
-function asegurarCarta(panel) {
-    let c = panel.querySelector('.mini-carta');
-    if (!c) {
-        c = document.createElement('div');
-        c.className = 'mini-carta';
-        c.textContent = '💌';
-        panel.appendChild(c);
-    }
-    return c;
 }
 
 function inicializarCarrusel() {
